@@ -43,8 +43,8 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 server.start().then(() => {
   server.applyMiddleware({ app });
-  app.listen({ port: 3000 }, () =>
-    console.log(`Server ready at http://localhost:3000${server.graphqlPath}`)
+  app.listen({ port: 3003 }, () =>
+    console.log(`Server ready at http://localhost:3003${server.graphqlPath}`)
   );
 });
 

@@ -58,7 +58,7 @@ const SignIn = () => {
         const variables = {};
     
         try {
-          const res = await fetch('http://172.20.10.3:3000/graphql', {
+          const res = await fetch('http://172.20.10.3:3003/graphql', {
             method: 'POST',
             headers: {  
               'Content-Type': 'application/json',
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
   },
   forgotPass: {
     width: '52%',
-    fontsize: 14,
+    fontSize: 14,
     fontWeight: 'bold',
     backgroundColor: '#fff',
     color: '#9435DF',

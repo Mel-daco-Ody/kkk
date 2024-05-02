@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { jwtDecode } from 'jwt-decode';
 import "core-js/stable/atob";
@@ -17,7 +17,7 @@ interface Work {
   name: string;
 }
 
-const JobRegistration = () => {
+const JobRegistration = ({navigation}) => {
   const [stateVariables, setStateVariables] = useState<StateVariables>({
     JobDecription: '',
     price: '',
@@ -119,32 +119,52 @@ const JobRegistration = () => {
 
       const json = await res.json();
       console.log(json.data.jobRegistion);
-
+      navigation.navigate('WorkBoard');
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
+    <ScrollView style={styles.Scroll} showsVerticalScrollIndicator={false}>
     <View style={styles.container}>
-      <View style={styles.headers} />
-      <Text style={styles.title}>Job Registration</Text>
 
-      <TextInput
-        style={styles.input}
+    <Image source={require('../../../assets/images/Logo.png')} style={styles.avatar} resizeMode ='contain' />
+    <Text style={styles.loginText}>AsIgn</Text>
+    <View style={styles.inputContainer}>
+
+
+    <Text style={styles.Conttext1}>Job Description</Text>
+    <TouchableOpacity style={styles.inputButton}>
+        <TextInput style={styles.inputText}
         placeholder="Job Decription"
         value={stateVariables.JobDecription}
-        onChangeText={text => setStateVariables({ ...stateVariables, JobDecription: text })}
-      />
+        onChangeText={text => setStateVariables({ ...stateVariables, JobDecription: text })}/>
+    </TouchableOpacity>
 
-      <TextInput
-        style={styles.input}
+    <View style={styles.horizontalAlign}>
+    <View>
+    <Text style={styles.Conttext2}>Price</Text>
+    <TouchableOpacity style={styles.inputButtonHorizontal}>
+        <TextInput style={styles.inputText}
         placeholder="Price"
         value={stateVariables.price}
-        onChangeText={text => setStateVariables({ ...stateVariables, price: text })}
+        onChangeText={text => setStateVariables({ ...stateVariables, price: text })}/>
+    </TouchableOpacity>
+    </View>
+    
+    <View>
+    <Text style={styles.Conttext3}>Job Type</Text>
+    <TouchableOpacity style={styles.inputButtonHorizontal}>
+        <TextInput style={styles.inputText}
+        placeholder="Job Type"
+        value={stateVariables.jobType}
+        onChangeText={text => setStateVariables({ ...stateVariables, jobType: text })}
       />
-
-      <TouchableOpacity style={styles.jobButton} onPress={() => setStateVariables({ ...stateVariables, showJobs: !stateVariables.showJobs })}>
+    </TouchableOpacity>
+    </View>
+    </View>
+    <TouchableOpacity style={styles.jobButton} onPress={() => setStateVariables({ ...stateVariables, showJobs: !stateVariables.showJobs })}>
         <Text style={styles.jobButtonText}>Select Job</Text>
       </TouchableOpacity>
 
@@ -161,62 +181,165 @@ const JobRegistration = () => {
           ))}
         </View>
       )}
-
-      <TextInput
-        style={styles.input}
-        placeholder="Job Type"
-        value={stateVariables.jobType}
-        onChangeText={text => setStateVariables({ ...stateVariables, jobType: text })}
-      />
-
-      <TouchableOpacity style={styles.registerButton} onPress={handleLogin}>
-        <Text style={styles.registerButtonText}>Register</Text>
-      </TouchableOpacity>
+    <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        <Text style={styles.loginButtonText}>Login</Text>
+    </TouchableOpacity>
+    
     </View>
+    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  Scroll: {
+    position: 'relative',
+    backgroundColor: '#A563D9',
+    marginTop:10
+  },
   container: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 24,
+    backgroundColor: '#A563D9',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 1000
   },
-  headers: {
-    height: '10%',
+  avatar: {
+    height: '11%',
+    marginTop: '-25%',
+    marginBottom: '7%'
   },
-  title: {
-    fontSize: 24,
+  loginText: {
+    fontSize: 70,
     fontWeight: 'bold',
-    marginBottom: 16,
+    color: '#fff',
+    marginBottom: -30,
+    marginLeft: '23%',
+    textShadowColor: '#A563D9', 
+    textShadowOffset: { width: 10, height: 15 }, // Độ dịch chuyển của shadow theo trục x và y
+    textShadowRadius: 10,
+    padding: 18,
+    zIndex: 1
   },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    marginBottom: 16,
+  inputContainer: {
+    width: '90%',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 30,
+    paddingTop: 15,
+  },
+  forgotPass: {
+    width: '52%',
+    fontsize: 14,
+    fontWeight: 'bold',
+    backgroundColor: '#fff',
+    color: '#9435DF',
+    marginTop: -10,
+    marginLeft:'50%'
+  },
+  inputText: {
+    color: '#9435DF',
+  },
+  loginButton: {
+    backgroundColor: '#9435DF',
+    padding: 8,
+    borderRadius: 5,
+    marginTop: 20,
+    height: 43,
+  },
+  loginButtonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  inputButton: {
+    backgroundColor: '#fff',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    borderColor:'grey',
+    borderWidth: 2,
+  },
+  inputButtonHorizontal: {
+    backgroundColor: '#fff',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    borderColor:'grey',
+    borderWidth: 2,
+    paddingRight: '30%',
+    width: 154
+  },
+  
+  Conttext1: {
+    width: '35%',
+    fontSize: 14,
+    fontWeight: 'bold',
+    backgroundColor: '#fff',
+    color: '#9435DF',
+    marginTop: 25,
+    marginBottom: -15,
+    marginLeft: 10,
+    zIndex:1,
+    textShadowColor: '#fff', // Màu của shadow (đen với độ mờ là 0.5)
+    textShadowOffset: { width: 1, height: 2 }, // Độ dịch chuyển của shadow theo trục x và y
+    textShadowRadius: 5,
+  },
+  Conttext2: {
+    width: 40,
+    fontSize: 14,
+    fontWeight: 'bold',
+    backgroundColor: '#fff',
+    color: '#9435DF',
+    marginTop: 20,
+    marginBottom: -15,
+    marginLeft: 10,
+    zIndex:1,
+    textShadowColor: '#fff', // Màu của shadow (đen với độ mờ là 0.5)
+    textShadowOffset: { width: 1, height: 2 }, // Độ dịch chuyển của shadow theo trục x và y
+    textShadowRadius: 5,
+  },
+  Conttext3: {
+    width: 68,
+    fontSize: 14,
+    fontWeight: 'bold',
+    backgroundColor: '#fff',
+    color: '#9435DF',
+    marginTop: 20,
+    marginBottom: -15,
+    marginLeft: 10,
+    zIndex:1,
+    textShadowColor: '#fff', // Màu của shadow (đen với độ mờ là 0.5)
+    textShadowOffset: { width: 1, height: 2 }, // Độ dịch chuyển của shadow theo trục x và y
+    textShadowRadius: 5,
+  },
+  horizontalAlign: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start'
   },
   jobButton: {
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#9435DF',
     borderRadius: 8,
     paddingVertical: 12,
-    paddingHorizontal: 16,
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 0,
+    marginTop:15
   },
   jobButtonText: {
-    fontSize: 16,
+    fontSize: 19,
     fontWeight: 'bold',
+    color: '#FFFFFF'
   },
   jobsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
+    paddingTop: 10
   },
   jobOption: {
-    backgroundColor: '#c0c0c0',
+    backgroundColor: '#A563D9',
     borderRadius: 8,
     paddingVertical: 10,
     paddingHorizontal: 16,
@@ -227,19 +350,9 @@ const styles = StyleSheet.create({
   },
   jobText: {
     fontSize: 16,
+    color: '#FFFFFF',
   },
-  registerButton: {
-    backgroundColor: 'blue',
-    borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    alignItems: 'center',
-  },
-  registerButtonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
-  },
+
 });
 
 export default JobRegistration;

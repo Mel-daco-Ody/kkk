@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import path from '../../Utils/Api'
+import path from '../../Utils/Api'; // Assuming Path is correctly imported
 import { jwtDecode } from 'jwt-decode';
 
 // Define JwtPayload interface before usage
@@ -11,7 +11,7 @@ interface JwtPayload {
   _id : string
 }
 
-const BookingEmployee = () => {
+const BookingEmployee = ({navigation}) => {
   const [userInfo, setUserInfo] = useState<any>(null); // State to store user information
 
   useEffect(() => {
@@ -109,15 +109,12 @@ const BookingEmployee = () => {
       });
 
       const json = await response.json();
-      Alert.alert(
-        'Success',
-        'Book thành công!',
-        [
-          { text: 'OK', onPress: () => console.log('OK Pressed') }
-        ],
-        { cancelable: false }
-      );
+      
+      
       console.log(json); // Handle the response as needed
+      
+      navigation.replace('WorkBoard');
+      navigation.navigate('WorkBoard');
     } catch (error) {
       console.error('Error fetching user info:', error);
     }

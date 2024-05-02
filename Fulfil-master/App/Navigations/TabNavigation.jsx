@@ -1,25 +1,28 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import { useFocusEffect } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../Screens/HomeScreen/HomeScreen';
 import ProfileScreen from '../Screens/ProfileScreen/ProfileScreen';
-import BookingScreen from '../Screens/BookingScreen/BookingScreen';
+import JobBooked from '../Screens/WorkBoard/JobBooked'
 import WorkerNavigation from '../Navigations/WorkerNavigation';
 import { FontAwesome } from '@expo/vector-icons';
 import Colors from '../Utils/Colors';
 
 const Tab = createBottomTabNavigator();
 
-
-export default function TabNavigation() {
-
+const TabNavigation = ({navigation}) => {
   return (
     <Tab.Navigator screenOptions={{
+        lazy: false,
         headerShown:false,
-        tabBarActiveTintColor:Colors.PRIMARY
+        tabBarActiveTintColor: '#A563D9',
+        tabBarInactiveTintColor: '#c0c0c0',
+        tabBarStyle: { backgroundColor: '#FFFFFF' }
     }}>
        <Tab.Screen name='home' component={HomeScreen}
        options={{
+        lazy:'false',
         tabBarLabel:({color})=>(
             <Text style={{color:color,fontSize:12,marginTop:-7}}>
                 Home</Text>
@@ -29,18 +32,9 @@ export default function TabNavigation() {
         )
        }}
        /> 
-       <Tab.Screen name='Booked' component={BookingScreen} 
-       options={{
-        tabBarLabel:({color})=>(
-            <Text style={{color:color,fontSize:12,marginTop:-7}}>
-                Booking</Text>
-        ),
-        tabBarIcon:({color,size})=>(
-            <FontAwesome name="cart-plus" size={size} color={color} />
-        )
-       }}/> 
        <Tab.Screen name='Work' component={WorkerNavigation} 
        options={{
+        lazy:false,
         tabBarLabel:({color})=>(
             <Text style={{color:color,fontSize:12,marginTop:-7}}>
                 WorkBoard</Text>
@@ -52,3 +46,5 @@ export default function TabNavigation() {
     </Tab.Navigator>
   )
 }
+
+export default TabNavigation;

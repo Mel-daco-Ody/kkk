@@ -58,9 +58,15 @@ export default function BusinessList() {
 
     return (
         <View style={{ marginTop: 30 }}>
-            <Heading text={'Latest Business'} isViewAll={true} />
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+            <Heading text={'Latest Business'}/>
+                <TouchableOpacity onPress={() => navigation.navigate('GetAllJob')}>
+                    <Text style={{color: '#A563D9', fontSize: 15 }}>View All</Text>
+                </TouchableOpacity>
+            </View>
+            
 
-            <ScrollView horizontal contentContainerStyle={styles.latestJobsContainer}>
+            <ScrollView horizontal contentContainerStyle={styles.latestJobsContainer} showsHorizontalScrollIndicator={false}>
                 {latestJobs.map((job, index) => (
                     <TouchableOpacity key={index} style={styles.latestJobItem} onPress={() => handleLastestJobPress(job)}>
                         <Text style={styles.latestJobTitle}>{job.JobName}</Text>

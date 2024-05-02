@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { jwtDecode } from 'jwt-decode'; // Fixed import name
-import path from '../../Utils/Api'; // Assuming Path is correctly imported
+import path from '../../Utils/Api';
+import { ScrollView } from 'react-native'
 
 // Define JwtPayload interface before usage
 interface JwtPayload {
@@ -27,24 +28,24 @@ const JobInfoBox = ({ navigation }) => {
       }
 
       const decoded: JwtPayload = jwtDecode(token);
-      const customerId = decoded.accountId;
+      const userId = decoded.accountId;
 
       const query = `
-        query getJobBookedbyName($name: String!) {
-            Jobs
-             {
-            userId
-            token
-            price
-            jobDecription
-            _id
-            JobType
-            JobName
-          }
+        query getYourJobBooked($name: String!) {
+            getYourJobBooked(userId: $name, status: "unavailable") {
+                userId
+                status
+                price
+                jobDecription
+                _id
+                customerId
+                JobName
+                JobType
+              }
         }
       `;
 
-      const variables = { name: customerId };
+      const variables = { name: userId };
 
       const response = await fetch(path, {
         method: 'POST',
@@ -55,7 +56,7 @@ const JobInfoBox = ({ navigation }) => {
       });
 
       const json = await response.json();
-      const { getJobBookedbyName: jobData } = json.data;
+      const { getYourJobBooked: jobData } = json.data; // Updated response key
       console.log(jobData);
       setJobList(jobData);
     } catch (error) {
@@ -95,7 +96,7 @@ const JobInfoBox = ({ navigation }) => {
         const decoded = jwtDecode(token);
         console.log(decoded);
 
-        navigation.navigate('canceJob')
+        navigation.navigate('deleteJob')
 
         // Lưu trữ token vào AsyncStorage
         await AsyncStorage.setItem('userJob', token);
@@ -107,8 +108,8 @@ const JobInfoBox = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Available Right Now</Text>
-
+      <Text style={styles.title}>New Works</Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
       {jobList.map((job, index) => (
         <TouchableOpacity
           key={index}
@@ -121,6 +122,7 @@ const JobInfoBox = ({ navigation }) => {
           <Text style={styles.jobPrice}>Price: {job.price}</Text>
         </TouchableOpacity>
       ))}
+      </ScrollView>
     </View>
   );
 };
@@ -132,31 +134,39 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
   },
   title: {
-    fontSize: 24,
+    fontSize: 40,
     fontWeight: 'bold',
     marginBottom: 16,
+    paddingTop: 40,
+    paddingBottom: 15,
+    color: '#9D63D9'
   },
   jobContainer: {
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 8,
+    borderRadius: 30,
     padding: 16,
     marginBottom: 16,
+    backgroundColor: '#9D63D9'
   },
   jobName: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
+    color: '#FFFFFF'
   },
   jobType: {
     fontSize: 16,
     marginBottom: 8,
+    color: '#FFFFFF'
   },
   jobDescription: {
     marginBottom: 8,
+    color: '#FFFFFF'
   },
   jobPrice: {
     fontWeight: 'bold',
+    color: '#FFFFFF'
   },
 });
 

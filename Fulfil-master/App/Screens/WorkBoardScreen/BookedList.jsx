@@ -3,19 +3,21 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { jwtDecode } from 'jwt-decode'; // Fixed import name
 import path from '../../Utils/Api'; // Assuming Path is correctly imported
-
+import { ScrollView } from 'react-native'
+import { useFocusEffect } from '@react-navigation/native';
 // Define JwtPayload interface before usage
 interface JwtPayload {
   name: string;
   accountId: string;
 }
 
-const JobInfoBox = ({ navigation }) => {
+const BookedList = ({ navigation}) => {
   const [jobList, setJobList] = useState([]);
 
   useEffect(() => {
     handlePress();
   }, []);
+
 
   const handlePress = async () => {
     try {
@@ -31,8 +33,7 @@ const JobInfoBox = ({ navigation }) => {
 
       const query = `
         query getJobBookedbyName($name: String!) {
-            Jobs
-             {
+          getJobBookedbyName(customerId: $name) {
             userId
             token
             price
@@ -58,6 +59,7 @@ const JobInfoBox = ({ navigation }) => {
       const { getJobBookedbyName: jobData } = json.data;
       console.log(jobData);
       setJobList(jobData);
+      
     } catch (error) {
       console.error('Error fetching job info:', error);
     }
@@ -94,21 +96,25 @@ const JobInfoBox = ({ navigation }) => {
 
         const decoded = jwtDecode(token);
         console.log(decoded);
-
-        navigation.navigate('canceJob')
+        
+        
 
         // Lưu trữ token vào AsyncStorage
         await AsyncStorage.setItem('userJob', token);
+        navigation.navigate('CancelJob')
+        WorkBoard();
+        
       }
     } catch (error) {
       console.error('Error fetching user info:', error);
     }
+    
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Available Right Now</Text>
-
+      
+      
       {jobList.map((job, index) => (
         <TouchableOpacity
           key={index}
@@ -121,6 +127,7 @@ const JobInfoBox = ({ navigation }) => {
           <Text style={styles.jobPrice}>Price: {job.price}</Text>
         </TouchableOpacity>
       ))}
+      
     </View>
   );
 };
@@ -132,32 +139,40 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
   },
   title: {
-    fontSize: 24,
+    fontSize: 40,
     fontWeight: 'bold',
     marginBottom: 16,
+    paddingTop: 40,
+    paddingBottom: 15,
+    color: '#9D63D9'
   },
   jobContainer: {
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 8,
+    borderRadius: 30,
     padding: 16,
     marginBottom: 16,
+    backgroundColor: '#9D63D9'
   },
   jobName: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
+    color: '#FFFFFF'
   },
   jobType: {
     fontSize: 16,
     marginBottom: 8,
+    color: '#FFFFFF'
   },
   jobDescription: {
     marginBottom: 8,
+    color: '#FFFFFF'
   },
   jobPrice: {
     fontWeight: 'bold',
+    color: '#FFFFFF'
   },
 });
 
-export default JobInfoBox;
+export default BookedList;

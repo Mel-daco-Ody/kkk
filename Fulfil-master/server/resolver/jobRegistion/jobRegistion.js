@@ -17,7 +17,11 @@ const user_resolvers =  {
 
         getJobNameType : async (parent , {JobType} , {mongoDataMethods} ) => await mongoDataMethod.getJobNameType(JobType),
 
-        getLastestJob : async (parent , {status}) => await mongoDataMethod.getAvailableJob(status)
+        getLastestJob : async (parent , {status}) => await mongoDataMethod.getAvailableJob(status),
+
+        getYourJobBooked : async (parent , {userId , status}) => await mongoDataMethod.getYourJobBooked(userId , status),
+
+        getJobbyJobType : async (parent , {JobType , status} , {mongoDataMethods}) => await mongoDataMethod.getJobbyJobType(JobType , status),
            
         
     },

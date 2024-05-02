@@ -1,5 +1,5 @@
 
-const path = 'http://192.168.1.5:3000/graphql'
+const path = 'http://172.20.10.3:3000/graphql'
 
 
 module.exports = path

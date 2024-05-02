@@ -38,6 +38,10 @@ const typeDefs_User = gql`
     JobName : String!
    
   }
+
+  input JobTypeInput {
+    JobType :String
+  }
   input JobBookingGetInput {
 
     _id : String!
@@ -58,6 +62,10 @@ const typeDefs_User = gql`
     getJobBookedbyName ( customerId : String , status : String) :  [Job!]!
     getYourJob (userId : String) : [Job!]!
     getLastestJob (status : String) :[Job!]!
+
+    getYourJobBooked (userId : String , status : String) : [Job!]!
+
+    getJobbyJobType (JobType : String, status : String): [Job!]!
 
 
   }

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { jwtDecode } from 'jwt-decode'; // Fixed import name
 import Path from '../../Utils/Api'
+import { ScrollView } from 'react-native'
 // Define JwtPayload interface before usage
 interface JwtPayload {
   name: string;
@@ -93,11 +94,9 @@ const handleJobPress = async (job) => {
     const decoded = jwtDecode(token);
     console.log(decoded);
 
-    navigation.navigate('UserJobInformation')
-
     // Lưu trữ token vào AsyncStorage
     await AsyncStorage.setItem('userJob', token);
-
+    navigation.navigate('UserJobInformation')
    
     
   }
@@ -110,7 +109,7 @@ const handleJobPress = async (job) => {
 return (
   <View style={styles.container}>
     <Text style={styles.title}>Job List</Text>
-
+    <ScrollView showsVerticalScrollIndicator={false}>
     {jobList.map((job, index) => (
       <TouchableOpacity
         key={index}
@@ -123,6 +122,7 @@ return (
         <Text style={styles.jobPrice}>Price: {job.price}</Text>
       </TouchableOpacity>
     ))}
+    </ScrollView>
   </View>
 );
 };
@@ -134,31 +134,39 @@ container: {
   paddingVertical: 24,
 },
 title: {
-  fontSize: 24,
+  fontSize: 40,
   fontWeight: 'bold',
   marginBottom: 16,
+  paddingTop: 40,
+  paddingBottom: 15,
+  color: '#9D63D9' 
 },
 jobContainer: {
   borderWidth: 1,
   borderColor: '#ccc',
-  borderRadius: 8,
+  borderRadius: 30,
   padding: 16,
   marginBottom: 16,
+  backgroundColor: '#9D63D9'
 },
 jobName: {
   fontSize: 18,
   fontWeight: 'bold',
   marginBottom: 8,
+  color: '#FFFFFF'
 },
 jobType: {
   fontSize: 16,
   marginBottom: 8,
+  color: '#FFFFFF'
 },
 jobDescription: {
   marginBottom: 8,
+  color: '#FFFFFF'
 },
 jobPrice: {
   fontWeight: 'bold',
+  color: '#FFFFFF'
 },
 });
 

@@ -55,10 +55,11 @@ export default function Categories() {
 
     const handleCategoryPress = async (categoryName) => {
         console.log('Category pressed:', categoryName);
+        console.log(categoryName);
         
         const query = `
             mutation {
-                chooseWork(input: { name : "${categoryName}"}) {
+                chooseWork(input: {name : "${categoryName}"}) {
                     token
                 }
             
@@ -87,10 +88,9 @@ export default function Categories() {
                 
                 const decoded = jwtDecode(token);
                 console.log(decoded);
-                navigation.navigate('BookingJob2');
 
                 await AsyncStorage.setItem('job', token);
-                
+                navigation.navigate('BookingJob2');
             } else {
                 console.error('Mutation error:', json.errors);
             }

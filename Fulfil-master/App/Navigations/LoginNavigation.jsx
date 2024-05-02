@@ -9,6 +9,8 @@ import HomeScreen from '../Screens/HomeScreen/HomeScreen'
 import ProfileScreen from '../Screens/ProfileScreen/ProfileScreen'
 import TabNavigation from '../Navigations/TabNavigation'
 import BookingJob2 from '../Screens/BookingScreen/BookingJob2'
+import UserJobInForamtion from '../Screens/JobInFormation/UserJobInforamtion'
+import canceJob from '../Screens/JobInFormation/canceJob'
 
 const Stack = createStackNavigator();
 
@@ -26,6 +28,8 @@ export default function SignNavigation() {
           <Stack.Screen name="Login" component={Login}/>
           <Stack.Screen name='TabNav' component={TabNavigation} />
           <Stack.Screen name='BookingJob2' component={BookingJob2}/>
+          <Stack.Screen name='UserJobInformation' component={UserJobInForamtion} />
+          <Stack.Screen name="CancelJob" component={canceJob}/>
         </Stack.Navigator>
   );
 }

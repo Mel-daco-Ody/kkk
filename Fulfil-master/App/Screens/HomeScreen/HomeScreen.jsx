@@ -5,7 +5,6 @@ import Slider from './Slider'
 import Categories from './Categories'
 import BusinessList from './BusinessList'
 import { ScrollView } from 'react-native'
-import TabNavigation from '../../Navigations/TabNavigation';
 import { NavigationContainer } from '@react-navigation/native';
 
 
