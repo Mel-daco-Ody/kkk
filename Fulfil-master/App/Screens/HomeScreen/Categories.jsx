@@ -55,11 +55,10 @@ export default function Categories() {
 
     const handleCategoryPress = async (categoryName) => {
         console.log('Category pressed:', categoryName);
-        console.log(categoryName);
         
         const query = `
             mutation {
-                chooseWork(input: {name : "${categoryName}"}) {
+                chooseWork(input: { name : "${categoryName}"}) {
                     token
                 }
             
@@ -88,9 +87,10 @@ export default function Categories() {
                 
                 const decoded = jwtDecode(token);
                 console.log(decoded);
+                navigation.navigate('BookingJob2');
 
                 await AsyncStorage.setItem('job', token);
-                navigation.navigate('BookingJob2');
+                
             } else {
                 console.error('Mutation error:', json.errors);
             }
@@ -101,7 +101,12 @@ export default function Categories() {
 
     return (
         <View style={{ marginTop: 10 }}>
-            <Heading text={'Categories'} isViewAll={true} />
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                <Heading text={'Categories'} />
+                <TouchableOpacity onPress={() => navigation.navigate('BookingJob')}>
+                    <Text style={{color: '#A563D9', fontSize: 15 }}>View All</Text>
+                </TouchableOpacity>
+            </View>
             <FlatList
                 data={categories}
                 horizontal={true}
@@ -126,6 +131,7 @@ export default function Categories() {
         </View>
     );
 }
+
 
 const styles = StyleSheet.create({
   container:{

@@ -8,7 +8,8 @@ import JobRegistion from '../Screens/WorkBoard/JobRegistion'
 import YourJob from '../Screens/WorkBoard/YourJob'
 import deleteJob from '../Screens/JobInFormation/deleteJob'
 import YourJobBooked from '../Screens/WorkBoard/YourJobBooked'
-import JobInfoBox from '..//Screens/WorkBoard/GetAllJob'
+import JobInfoBox from '../Screens/WorkBoard/GetAllJob'
+import BookingJob from '../Screens/BookingScreen/BookingJob'
 
 const Stack = createStackNavigator();
 
@@ -29,7 +30,9 @@ export default function WorkerNavigation() {
 
             <Stack.Screen name='DeleteJob' component={deleteJob} />
 
-            <Stack.Screen name='GetAllJob' component={JobInfoBox}/>
+            <Stack.Screen name='GetAllJob' component={JobInfoBox} />
+
+            <Stack.Screen name='BookingJob' component={BookingJob} />
 
            
     </Stack.Navigator>
