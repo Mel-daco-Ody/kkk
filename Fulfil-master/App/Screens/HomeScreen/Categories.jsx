@@ -87,9 +87,9 @@ export default function Categories() {
                 
                 const decoded = jwtDecode(token);
                 console.log(decoded);
-                navigation.navigate('BookingJob2');
 
                 await AsyncStorage.setItem('job', token);
+                navigation.navigate('BookingJob2');
                 
             } else {
                 console.error('Mutation error:', json.errors);

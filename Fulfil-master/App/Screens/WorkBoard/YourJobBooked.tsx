@@ -108,7 +108,7 @@ const JobInfoBox = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>New Works</Text>
+      <Text style={styles.title}>Order Nofication</Text>
       <ScrollView showsVerticalScrollIndicator={false}>
       {jobList.map((job, index) => (
         <TouchableOpacity

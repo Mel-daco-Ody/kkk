@@ -52,7 +52,7 @@ import { useNavigation } from '@react-navigation/native';
       const variables = {};
   
       try {
-        const res = await fetch('http://172.20.10.3:3000/graphql', {
+        const res = await fetch('http://172.20.10.3:3003/graphql', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

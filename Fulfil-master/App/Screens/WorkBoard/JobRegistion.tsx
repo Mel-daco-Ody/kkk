@@ -110,7 +110,7 @@ const JobRegistration = ({navigation}) => {
 
       Alert.alert(
         'Success',
-        'Login successful!',
+        'Registry successful!',
         [
           { text: 'OK', onPress: () => console.log('OK Pressed') }
         ],
@@ -182,7 +182,7 @@ const JobRegistration = ({navigation}) => {
         </View>
       )}
     <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Login</Text>
+        <Text style={styles.loginButtonText}>Registry</Text>
     </TouchableOpacity>
     
     </View>
