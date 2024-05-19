@@ -16,24 +16,6 @@ WebBrowser.maybeCompleteAuthSession();
 
 const SignIn = () => {
   
-  useWarmUpBrowser();
-    const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
-    const onPress = React.useCallback(async () => {
-        console.log("SCO")
-        try {
-          const { createdSessionId, signIn, signUp, setActive } =
-            await startOAuthFlow();
-     
-          if (createdSessionId) {
-            setActive({ session: createdSessionId });
-          } else {
-            // Use signIn or signUp for next steps such as MFA
-          }
-        } catch (err) {
-          console.error("OAuth error", err);
-        }
-      }, []);
-
       const [stateVariables, setStateVariables] = useState({
         username: '',
         password: '',
@@ -171,15 +153,15 @@ const SignIn = () => {
     <View style={styles.footer}>
         <Text style={styles.footerText}>Or sign in with</Text>
         <View style={styles.socialContainer}>
-        <TouchableOpacity style={styles.button} onPress={onPress}>
+        <TouchableOpacity style={styles.button}>
             <Image source={require('../../../assets/images/gmail.png')} style={styles.logo} resizeMode ='contain'/>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={()=>console.log('Head to Facebook')}>
+        <TouchableOpacity style={styles.button}>
             <Image source={require('../../../assets/images/facebook.png')} style={styles.logo} resizeMode ='contain'/>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={()=>console.log('Head to Instagram')}>
+        <TouchableOpacity style={styles.button}>
             <Image source={require('../../../assets/images/instagram.png')} style={styles.logo} resizeMode ='contain'/>
         </TouchableOpacity>
     </View>

@@ -5,6 +5,10 @@ import {useNavigation} from '@react-navigation/native';
 
 export default function Login() {
     const navigation = useNavigation();
+    const handleSignInPress = () => {
+        // Thực hiện các hành động khi nút được nhấn
+        navigation.replace('SignIn');
+    };
   return (
     <View style={{alignItems:'center'}}>
         <Image source={require('../../../assets/images/login.png')} 
@@ -21,7 +25,7 @@ export default function Login() {
             textAlign:'center',marginTop:20}}>Best App to find services near you which deliver you a professional service</Text>
         
             <TouchableOpacity style={styles.button} 
-            onPress={() => navigation.replace('SignIn')}>
+            onPress={handleSignInPress}>
                 <Text style={{textAlign:'center',
                 fontSize:17,
                 color: '#9f5bff'}}>Let's Get Started</Text>

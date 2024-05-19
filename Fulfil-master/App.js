@@ -16,8 +16,6 @@ export default function App() {
 
   });
   return (
-    <ClerkProvider publishableKey='pk_test_ZGVsaWNhdGUtaGVycmluZy0wLmNsZXJrLmFjY291bnRzLmRldiQ'>
-    
     <View style={styles.container}>
     
       <NavigationContainer>
@@ -28,7 +26,6 @@ export default function App() {
       <StatusBar style="auto" />
       
     </View>
-    </ClerkProvider>
   );
 }
 

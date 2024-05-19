@@ -98,12 +98,16 @@ export default function Categories() {
             console.error('Error:', error);
         }
     };
+    const handleBookingJobPress = () => {
+        // Thực hiện các hành động khi nút được nhấn
+        navigation.replace('BookingJob');
+    };
 
     return (
         <View style={{ marginTop: 10 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                 <Heading text={'Categories'} />
-                <TouchableOpacity onPress={() => navigation.navigate('BookingJob')}>
+                <TouchableOpacity onPress={handleBookingJobPress}>
                     <Text style={{color: '#A563D9', fontSize: 15 }}>View All</Text>
                 </TouchableOpacity>
             </View>
